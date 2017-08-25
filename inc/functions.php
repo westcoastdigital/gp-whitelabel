@@ -184,10 +184,6 @@ function gp_whitelabel_admin_script() {
 	$gp_wp_author = $white_label_options['gp_wp_author'];
     $admin_js = "
     	jQuery(document).ready(function() {
-		var name = jQuery('.theme-overlay .theme-info .theme-name').text(),
-			author = jQuery('.theme-overlay .theme-info .theme-author').text();
-		
-			console.log(author);
 			jQuery( '#generatepress-name' ).text( '{$gp_wp_name}' );
 			jQuery('.theme-overlay .theme-info .theme-name').each(function () {
 				if (jQuery(this).text() == 'GeneratePressVersion: 1.4') {
@@ -199,10 +195,10 @@ function gp_whitelabel_admin_script() {
 					jQuery(this).text( 'by {$gp_wp_author}' );
 				}
 			});
-			jQuery( '.theme-description' ).text(function(i, text) {
+			jQuery( '.theme-overlay .theme-info .theme-description' ).text(function(i, text) {
 				return text.replace( 'GeneratePress', '{$gp_wp_name}' );
 			});
 		});";
     wp_add_inline_script( 'admin-script', $admin_js );
 }
-//add_action( 'admin_enqueue_scripts', 'gp_whitelabel_admin_script' );
+add_action( 'admin_enqueue_scripts', 'gp_whitelabel_admin_script' );

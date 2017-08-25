@@ -12,7 +12,7 @@ class WhiteLabel {
 	}
 
 	public function white_label_add_plugin_page() {
-		add_options_page(
+		add_management_page(
 			'White Label', // page_title
 			'White Label', // menu_title
 			'manage_options', // capability

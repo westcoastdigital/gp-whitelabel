@@ -15,4 +15,3 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once 'inc/settings.php';
 require_once 'inc/functions.php';
-require_once 'inc/acf.php';
