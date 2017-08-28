@@ -13,5 +13,10 @@ Domain Path: /languages
 // No direct access, please
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-require_once 'inc/settings.php';
-require_once 'inc/functions.php';
+if( function_exists('acf_add_options_page') ) {
+	require_once 'inc/acf.php';
+	require_once 'inc/functions.php';
+} else {
+	require_once 'inc/settings.php';
+	require_once 'inc/functions.php';
+}
