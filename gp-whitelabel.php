@@ -3,7 +3,7 @@
 Plugin Name: White Label GP
 Plugin URI: https://github.com/WestCoastDigital/gp-whitelabel
 Description: Whitelabel GP with jQuery scripts
-Version: 1.0.0
+Version: 1.2.0
 Author: Jon Mather
 Author URI: https://github.com/WestCoastDigital/
 Text Domain: gp-whitelabel

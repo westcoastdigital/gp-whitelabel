@@ -199,29 +199,8 @@ function gp_whitelabel_admin_script() {
 		$admin_js = "
     	jQuery(document).ready(function() {
 			jQuery( '#generatepress-name' ).text( '{$gp_wp_name}' );
-			jQuery('.theme-overlay .theme-info .theme-name').each(function () {
-				if (jQuery(this).text() == 'GeneratePressVersion: 1.4') {
-					jQuery(this).text( '{$gp_wp_name}' );
-				}
-			});
-			jQuery('.theme-overlay .theme-info .theme-author').each(function () {
-				if (jQuery(this).text() == 'By Tom Usborne') {
-					jQuery(this).text( 'by {$gp_wp_author}' );
-				}
-			});
-			jQuery( '.theme-overlay .theme-info .theme-description' ).text( '{$gp_wp_description}' );
-			jQuery( '.theme-overlay .theme-info .theme-tags' ).text( '{$gp_wp_tags}' );
-			jQuery( '.theme[data-slug={$dataSlug}] .theme-screenshot img' ).attr( 'src', '{$gp_wp_image}' );
-			jQuery( '.theme-overlay .theme-screenshots .screenshot img' ).attr( 'src', '{$gp_wp_image}' );
-		});";
-	} else {
-		$white_label_options = get_option( 'white_label_option_name' );
-		$gp_wp_name = $white_label_options['gp_wp_name'];
-		$gp_wp_url = $white_label_options['gp_wp_url'];
-		$gp_wp_author = $white_label_options['gp_wp_author'];
-		$admin_js = "
-			jQuery(document).ready(function() {
-				jQuery( '#generatepress-name' ).text( '{$gp_wp_name}' );
+			
+			function generate_theme_changes() {
 				jQuery('.theme-overlay .theme-info .theme-name').each(function () {
 					if (jQuery(this).text() == 'GeneratePressVersion: 1.4') {
 						jQuery(this).text( '{$gp_wp_name}' );
@@ -232,9 +211,51 @@ function gp_whitelabel_admin_script() {
 						jQuery(this).text( 'by {$gp_wp_author}' );
 					}
 				});
-				jQuery( '.theme-overlay .theme-info .theme-description' ).text(function(i, text) {
-					return text.replace( 'GeneratePress', '{$gp_wp_name}' );
-				});
+				jQuery( '.theme-overlay .theme-info .theme-description' ).text( '{$gp_wp_description}' );
+				jQuery( '.theme-overlay .theme-info .theme-tags' ).text( '{$gp_wp_tags}' );
+				jQuery( '.theme[data-slug={$dataSlug}] .theme-screenshot img' ).attr( 'src', '{$gp_wp_image}' );
+				jQuery( '.theme-overlay .theme-screenshots .screenshot img' ).attr( 'src', '{$gp_wp_image}' );
+			}
+			
+			generate_theme_changes();
+			
+			jQuery( '.theme[data-slug={$dataSlug}]' ).click(function(){
+				generate_theme_changes();
+			});
+			
+		});";
+	} else {
+		$white_label_options = get_option( 'white_label_option_name' );
+		$gp_wp_name = $white_label_options['gp_wp_name'];
+		$gp_wp_url = $white_label_options['gp_wp_url'];
+		$gp_wp_author = $white_label_options['gp_wp_author'];
+		$dataSlug = '"generatepress"';
+		$admin_js = "
+			jQuery(document).ready(function() {
+				jQuery( '#generatepress-name' ).text( '{$gp_wp_name}' );
+				
+				function generate_theme_changes() {
+					jQuery('.theme-overlay .theme-info .theme-name').each(function () {
+						if (jQuery(this).text() == 'GeneratePressVersion: 1.4') {
+							jQuery(this).text( '{$gp_wp_name}' );
+						}
+					});
+					jQuery('.theme-overlay .theme-info .theme-author').each(function () {
+						if (jQuery(this).text() == 'By Tom Usborne') {
+							jQuery(this).text( 'by {$gp_wp_author}' );
+						}
+					});
+					jQuery( '.theme-overlay .theme-info .theme-description' ).text(function(i, text) {
+						return text.replace( 'GeneratePress', '{$gp_wp_name}' );
+					});
+				}
+				
+				generate_theme_changes();
+			
+			jQuery( '.theme[data-slug={$dataSlug}]' ).click(function(){
+				generate_theme_changes();
+			});
+				
 			});";
 	}
     wp_add_inline_script( 'admin-script', $admin_js );
